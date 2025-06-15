@@ -14,14 +14,11 @@ Learn QKD with Low-Cost Hardware and an Interactive GUI
    ```
 
 **Start the application**
-    ```bash
+```bash
    nodemon app.js     
    # or
    node app.js       
    ```
 
-**Open the app in your browser**
-
-   ```
-   http://localhost:6789/
-   ```
+**Open the app in browser**
+http://localhost:6789/
