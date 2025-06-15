@@ -14,7 +14,7 @@ Learn QKD with Low-Cost Hardware and an Interactive GUI
    ```
 
 **Start the application**
-```bash
+    ```bash
    nodemon app.js     
    # or
    node app.js       
