@@ -36,13 +36,22 @@ body {
     margin: 0 auto;
     border-radius: 2rem;
     border: none;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
     background: #fff;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     transition: box-shadow 0.4s, transform 0.4s, opacity 0.4s;
     overflow: hidden;
+}
+
+/* Remove shadow from all images inside cards */
+.snap-card .card img,
+.snap-card .card .img-fluid,
+.snap-card .card .shadow,
+.snap-card .card .shadow-sm {
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 
 .card-body {
@@ -105,7 +114,6 @@ h2 {
     margin: 0;
     min-width: 320px;
     max-width: 90vw;
-    box-shadow: 0 2px 12px 0 rgba(31, 38, 135, 0.08);
     padding: 1.2rem 2.5rem 0.7rem 2.5rem;
     transition: opacity 0.25s;
     font-family: 'Segoe UI', sans-serif;
