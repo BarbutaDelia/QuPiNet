@@ -686,7 +686,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 keySuccessDiv.className = 'alert alert-success mt-3';
                 keySuccessDiv.innerHTML = `
                     <strong>Secure Key Established!</strong> 
-                    <p>Alice and Bob now share a ${keyString.length}-value secret key.</p>
+                    <p>Alice and Bob now share a ${keyString.length}-bit secret key.</p>
                     <p>This key is secure because any eavesdropper would disturb the quantum states during measurement.</p>
                 `;
                 document.getElementById('key-composition-container').appendChild(keySuccessDiv);

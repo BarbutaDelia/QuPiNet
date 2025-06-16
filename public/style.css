@@ -420,14 +420,14 @@ a {
     box-shadow: 0 0 8px rgba(30, 136, 229, 0.8);
 }
 
-html,
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
-    overflow: hidden;
-}
+/*html,*/
+/*body {*/
+/*    height: 100%;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);*/
+/*    overflow: hidden;*/
+/*}*/
 
 .snap-container {
     height: 100vh;
@@ -504,14 +504,14 @@ h2 {
     color: #1e3c72;
 }
 
-.btn-primary {
-    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
-    border: none;
-    border-radius: 2rem;
-    padding: 0.75rem 2rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
+/*.btn-primary {*/
+/*    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);*/
+/*    border: none;*/
+/*    border-radius: 2rem;*/
+/*    padding: 0.75rem 2rem;*/
+/*    font-weight: 600;*/
+/*    letter-spacing: 1px;*/
+/*}*/
 
 .about-title {
     position: fixed;
