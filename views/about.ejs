@@ -1,116 +1,13 @@
 <!-- AOS CSS for scroll animations (only on About page) -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<style>
-    html,
-    body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
-        overflow: hidden;
-    }
+<link rel="stylesheet" href="/style.css">
 
-    .snap-container {
-        height: 100vh;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory;
-        -webkit-overflow-scrolling: touch;
-        padding: 0;
-        margin: 0;
-    }
-
-    .snap-card {
-        min-height: 95vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        scroll-snap-align: center;
-        scroll-snap-stop: always;
-        padding: 2vh 0;
-        transition: filter 0.4s, opacity 0.4s, transform 0.4s;
-        z-index: 1;
-    }
-
-    .snap-card .card {
-        width: 95vw;
-        max-width: 900px;
-        min-height: 70vh;
-        max-height: 85vh;
-        margin: 0 auto;
-        border-radius: 2rem;
-        border: none;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-        background: #fff;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        transition: box-shadow 0.4s, transform 0.4s, opacity 0.4s;
-        overflow: hidden;
-    }
-
-    .card-body {
-        padding: 2rem;
-        overflow-y: auto;
-        max-height: 65vh;
-        min-height: 40vh;
-        box-sizing: border-box;
-    }
-
-    .snap-card:not(.active) {
-        opacity: 0.4;
-        filter: blur(1.5px);
-        transform: scale(0.93);
-        z-index: 0;
-    }
-
-    .snap-card.active {
-        opacity: 1;
-        filter: none;
-        transform: scale(1);
-        z-index: 2;
-    }
-
-    .card-title {
-        font-family: 'Segoe UI', sans-serif;
-        font-weight: 700;
-        color: #2a5298;
-    }
-
-    h2 {
-        color: #1e3c72;
-    }
-
-    .btn-primary {
-        background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
-        border: none;
-        border-radius: 2rem;
-        padding: 0.75rem 2rem;
-        font-weight: 600;
-        letter-spacing: 1px;
-    }
-
-    @media (max-width: 900px) {
-        .snap-card .card {
-            max-width: 99vw;
-            min-height: 60vh;
-            max-height: 90vh;
-        }
-    }
-
-    @media (max-width: 600px) {
-        .snap-card .card {
-            max-width: 100vw;
-            min-height: 55vh;
-            padding: 1rem;
-        }
-    }
-</style>
-
+<div id="about-title" class="about-title">About the BB84 Protocol</div>
 <div class="snap-container">
-    <section class="snap-card" data-aos="fade-up">
+    <section class="snap-card" data-title="About the BB84 Protocol" data-aos="fade-up">
         <div class="card shadow">
             <div class="card-body">
-                <h1 class="card-title mb-4">About the BB84 Protocol</h1>
+                <h1 class="card-title mb-4" style="display:none">About the BB84 Protocol</h1>
                 <p class="card-text">
                     <strong>BB84</strong> is a way for two people—let’s call them Alice and Bob—to share a secret code
                     so that nobody else can read their messages.
@@ -121,10 +18,10 @@
             </div>
         </div>
     </section>
-    <section class="snap-card" data-aos="fade-up">
+    <section class="snap-card" data-title="Why is it useful?" data-aos="fade-up">
         <div class="card shadow">
             <div class="card-body">
-                <h2 class="mt-2">Why is it useful?</h2>
+                <h2 class="mt-2" style="display:none">Why is it useful?</h2>
                 <p class="card-text">
                     BB84 relies on the fact that when you measure a photon, you disturb it—you make its quantum state
                     “collapse.”
@@ -136,10 +33,10 @@
             </div>
         </div>
     </section>
-    <section class="snap-card" data-aos="fade-up">
+    <section class="snap-card" data-title="How does it work?" data-aos="fade-up">
         <div class="card shadow">
             <div class="card-body">
-                <h2 class="mt-2">How does it work?</h2>
+                <h2 class="mt-2" style="display:none">How does it work?</h2>
                 <ol class="card-text">
                     <li class="mb-4">
                         <strong>Setting up bases</strong><br>
@@ -178,12 +75,23 @@
             </div>
         </div>
     </section>
-    <section class="snap-card" data-aos="fade-up">
+    <section class="snap-card" data-title="Learn More" data-aos="fade-up">
         <div class="card shadow text-center">
             <div class="card-body">
-                <h2 class="mt-2">Learn More</h2>
+                <h2 class="mt-2" style="display:none">Learn More</h2>
+                <p class="card-text">
+                    Are you hungry for more? Check the Wikipedia about BB84 below.
+                </p>
                 <a href="https://en.wikipedia.org/wiki/BB84" class="btn btn-primary mt-3" target="_blank">
                     Learn more on Wikipedia
+                </a>
+                <div style="height: 2rem;"></div>
+                <p class="card-text mt-4">
+                    Interested in more quantum?
+                    Check Michael A. Nielsen and Isaac L. Chuang's book <em>Quantum Computation and Quantum Information</em>:
+                </p>
+                <a href="https://profmcruz.wordpress.com/wp-content/uploads/2017/08/quantum-computation-and-quantum-information-nielsen-chuang.pdf" class="btn btn-secondary mt-2" target="_blank">
+                    PDF of "Quantum Computation and Quantum Information"
                 </a>
             </div>
         </div>
@@ -202,6 +110,7 @@
     // Highlight the focused card
     const snapCards = document.querySelectorAll('.snap-card');
     const snapContainer = document.querySelector('.snap-container');
+    const aboutTitle = document.getElementById('about-title');
     function setActiveCard() {
         let closest = null;
         let minDist = Infinity;
@@ -215,7 +124,18 @@
             }
         });
         snapCards.forEach(card => card.classList.remove('active'));
-        if (closest) closest.classList.add('active');
+        if (closest) {
+            closest.classList.add('active');
+            // Fade out, change title, fade in
+            const newTitle = closest.getAttribute('data-title');
+            if (aboutTitle.innerText !== newTitle) {
+                aboutTitle.classList.add('fade');
+                setTimeout(() => {
+                    aboutTitle.innerText = newTitle;
+                    aboutTitle.classList.remove('fade');
+                }, 350);
+            }
+        }
     }
     snapContainer.addEventListener('scroll', () => {
         window.requestAnimationFrame(setActiveCard);
