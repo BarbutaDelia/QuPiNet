@@ -9,6 +9,7 @@ body {
 
 .snap-container {
     height: 100vh;
+    /* max-height: calc(100vh - 125px); */
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch;
