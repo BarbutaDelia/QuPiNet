@@ -1,3 +1,38 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Quantum Key Distribution Simulation</h1>
+    
+    <div class="animation-container">
+        <div class="alice-box">
+            <h3>Alice</h3>
+            <div class="info-panel">
+                <p>Current value: <span id="alice-value">-</span></p>
+                <p>Values sent: <span id="values-sent">0</span>/32</p>
+            </div>
+            <div class="bit-array" id="alice-bits"></div>
+        </div>
+        
+        <div class="quantum-channel">
+            <!-- Photons will be animated here -->
+        </div>
+        
+        <div class="bob-box">
+            <h3>Bob</h3>
+            <div class="info-panel">
+                <p>Received value: <span id="bob-value">-</span></p>
+                <p>Values received: <span id="values-received">0</span>/32</p>
+            </div>
+            <div class="bit-array" id="bob-bits"></div>
+        </div>
+    </div>
+    
+    <div class="controls mt-4 text-center">
+        <button id="start-btn" class="btn btn-primary">Start Transmission</button>
+        <button id="reset-btn" class="btn btn-secondary ms-3">Reset</button>
+        <div class="speed-control mt-3">
+            <label for="speed-slider">Animation Speed:</label>
+            <input type="range" id="speed-slider" min="1" max="10" value="5">
+        </div>
+    </div>
 <div class="snap-container">
   <section class="snap-card" id="what-we-aim-for" data-aos="fade-up">
     <div class="card shadow">
