@@ -18,4 +18,8 @@ app.get('/about', (req, res) => {
     res.render('about');
 });
 
+app.get('/simulation', (req, res) => {
+    res.render('simulation');
+});
+
 app.listen(port, () => console.log(`Server is running at http://localhost:${port}/`));
