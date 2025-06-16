@@ -3,7 +3,7 @@ a{
 }
 .nav-link {
   color: #CDBEBF;                
-  transition: color 0.5s ease, ransform 0.5s ease;
+  transition: color 0.5s ease, transform 0.5s ease;
   display: inline-block;     
 }
 .nav-link:hover{
