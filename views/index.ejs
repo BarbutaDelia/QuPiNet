@@ -1,12 +1,43 @@
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Quantum Key Distribution Simulation</h1>
+    <!-- Add this before the animation container -->
+    <div class="legend-container mb-4">
+        <h5>Quantum State Legend:</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="legend-item">
+                    <div class="legend-basis">+ Basis (Rectilinear):</div>
+                    <div class="d-flex align-items-center mt-2">
+                        <div class="legend-circle" style="background-color: #4d4dff;"></div>
+                        <span class="ms-2">Value 0 = Blue</span>
+                    </div>
+                    <div class="d-flex align-items-center mt-2">
+                        <div class="legend-circle" style="background-color: #4dff4d;"></div>
+                        <span class="ms-2">Value 1 = Green</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="legend-item">
+                    <div class="legend-basis">× Basis (Diagonal):</div>
+                    <div class="d-flex align-items-center mt-2">
+                        <div class="legend-circle" style="background-color: #4d4dff;"></div>
+                        <span class="ms-2">Value 0 = Blue</span>
+                    </div>
+                    <div class="d-flex align-items-center mt-2">
+                        <div class="legend-circle" style="background-color: #ff4d4d;"></div>
+                        <span class="ms-2">Value 1 = Red</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <div class="animation-container">
         <div class="alice-box">
             <h3>Alice</h3>
             <div class="info-panel">
                 <p>Current value: <span id="alice-value">-</span></p>
-                <p>Values sent: <span id="values-sent">0</span>/32</p>
+                <p>Values sent: <span id="values-sent">0</span>/8</p>
             </div>
             <div class="bit-array" id="alice-bits"></div>
         </div>
@@ -19,7 +50,7 @@
             <h3>Bob</h3>
             <div class="info-panel">
                 <p>Received value: <span id="bob-value">-</span></p>
-                <p>Values received: <span id="values-received">0</span>/32</p>
+                <p>Values received: <span id="values-received">0</span>/8</p>
             </div>
             <div class="bit-array" id="bob-bits"></div>
         </div>
@@ -27,12 +58,14 @@
     
     <div class="controls mt-4 text-center">
         <button id="start-btn" class="btn btn-primary">Start Transmission</button>
+        <button id="speed-run-btn" class="btn btn-success ms-3">Speed Run</button>
         <button id="reset-btn" class="btn btn-secondary ms-3">Reset</button>
         <div class="speed-control mt-3">
             <label for="speed-slider">Animation Speed:</label>
             <input type="range" id="speed-slider" min="1" max="10" value="5">
         </div>
     </div>
+<<<<<<< HEAD
 <div class="snap-container">
   <section class="snap-card" id="what-we-aim-for" data-aos="fade-up">
     <div class="card shadow">
@@ -64,3 +97,29 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="/snap-cards.js"></script>
+=======
+
+    <!-- Add this after the animation container -->
+    <div class="key-composition-container" id="key-composition-container" style="display: none;">
+        <h3 class="text-center mb-3">Key Composition</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Alice's bits</h5>
+                <div class="bit-array" id="alice-final-bits"></div>
+            </div>
+            <div class="col-md-4">
+                <h5>Matching bases</h5>
+                <div class="bit-array" id="matching-bases"></div>
+            </div>
+            <div class="col-md-4">
+                <h5>Final Key</h5>
+                <div class="bit-array" id="final-key-bits"></div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <h5>Secure Key: <span id="secure-key" class="monospace"></span></h5>
+            <p class="mt-3">This key can now be used for secure encryption between Alice and Bob.</p>
+        </div>
+    </div>
+</div>
+>>>>>>> 07c5033 (Add files via upload)
