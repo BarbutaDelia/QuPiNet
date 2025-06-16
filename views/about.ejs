@@ -1,62 +1,241 @@
-<div class="container my-5">
-  <div class="card shadow">
-    <div class="card-body">
-      <h1 class="card-title mb-4">About the BB84 Protocol</h1>
+<!-- AOS CSS for scroll animations (only on About page) -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+        overflow: hidden;
+    }
 
-      <!-- What is BB84? -->
-      <h2 class="mt-4">What is <strong>BB84</strong>?</h2>
-      <p class="card-text">
-        <strong>BB84</strong> is a way for two people—let’s call them Alice and Bob—to share a secret code so that nobody else can read their messages. 
-        It was invented in <strong>1984</strong> by <strong>Charles Bennett</strong> and <strong>Gilles Brassard</strong>, and it uses the magic rules of <strong>quantum physics</strong> to keep everything safe.
-      </p>
+    .snap-container {
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 0;
+        margin: 0;
+    }
 
-      <!-- Why is it useful? -->
-      <h2 class="mt-4">Why is it useful?</h2>
-      <p class="card-text">
-        BB84 relies on the fact that when you measure a photon, you disturb it—you make its quantum state “collapse.” 
-        If someone (Eve, the spy) tries to eavesdrop by measuring those photons, she’ll accidentally change them. 
-        Alice and Bob will notice something’s off and know their link isn’t safe. 
-        That makes BB84 practically <strong>eavesdrop‑proof</strong>.
-      </p>
+    .snap-card {
+        min-height: 95vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+        padding: 2vh 0;
+        transition: filter 0.4s, opacity 0.4s, transform 0.4s;
+        z-index: 1;
+    }
 
-      <!-- How does it work? -->
-      <h2 class="mt-4">How does it work?</h2>
-      <ol class="card-text">
-        <li>
-          <strong>Setting up bases</strong><br>
-          Alice has two special “glasses” she can use to send bits: the <strong>+ (rectilinear)</strong> basis and the <strong>× (diagonal)</strong> basis. 
-          Each direction on a glass means either 0 or 1.<br>
-          <img src="temp1.jpg" alt="Step 1: Polarization bases" class="img-fluid mt-2">
-        </li>
-        <li class="mt-3">
-          <strong>Sending photons</strong><br>
-          Alice picks a random string of 0s and 1s and a random sequence of glasses (+ or ×). 
-          For each bit, she polarizes a photon using the chosen glass.<br>
-          <img src="temp2.jpg" alt="Step 2: Sending photons" class="img-fluid mt-2">
-        </li>
-        <li class="mt-3">
-          <strong>Bob’s measurements</strong><br>
-          Bob receives each photon but doesn’t know which glass was used. 
-          He randomly chooses + or × to measure and notes down a 0 or 1 result.<br>
-          <img src="temp3.jpg" alt="Step 3: Measuring photons" class="img-fluid mt-2">
-        </li>
-        <li class="mt-3">
-          <strong>Comparing bases</strong><br>
-          Over a public (but non‑secret) channel, Alice and Bob share which glasses they used for each photon—<em>not</em> the actual bit values. 
-          They keep only the bits where their choices matched.<br>
-          <img src="temp4.jpg" alt="Step 4: Comparing bases" class="img-fluid mt-2">
-        </li>
-        <li class="mt-3">
-          <strong>Checking security</strong><br>
-          To make sure nobody tapped in, Alice and Bob reveal a small subset of their kept bits and compare them. 
-          If those match, the rest become their shared secret key.<br>
-          <img src="temp5.jpg" alt="Step 5: Security check" class="img-fluid mt-2">
-        </li>
-      </ol>
+    .snap-card .card {
+        width: 95vw;
+        max-width: 900px;
+        min-height: 70vh;
+        max-height: 85vh;
+        margin: 0 auto;
+        border-radius: 2rem;
+        border: none;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        transition: box-shadow 0.4s, transform 0.4s, opacity 0.4s;
+        overflow: hidden;
+    }
 
-      <a href="https://en.wikipedia.org/wiki/BB84" class="btn btn-primary mt-3" target="_blank">
-        Learn more on Wikipedia
-      </a>
-    </div>
-  </div>
+    .card-body {
+        padding: 2rem;
+        overflow-y: auto;
+        max-height: 65vh;
+        min-height: 40vh;
+        box-sizing: border-box;
+    }
+
+    .snap-card:not(.active) {
+        opacity: 0.4;
+        filter: blur(1.5px);
+        transform: scale(0.93);
+        z-index: 0;
+    }
+
+    .snap-card.active {
+        opacity: 1;
+        filter: none;
+        transform: scale(1);
+        z-index: 2;
+    }
+
+    .card-title {
+        font-family: 'Segoe UI', sans-serif;
+        font-weight: 700;
+        color: #2a5298;
+    }
+
+    h2 {
+        color: #1e3c72;
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+        border: none;
+        border-radius: 2rem;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    @media (max-width: 900px) {
+        .snap-card .card {
+            max-width: 99vw;
+            min-height: 60vh;
+            max-height: 90vh;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .snap-card .card {
+            max-width: 100vw;
+            min-height: 55vh;
+            padding: 1rem;
+        }
+    }
+</style>
+
+<div class="snap-container">
+    <section class="snap-card" data-aos="fade-up">
+        <div class="card shadow">
+            <div class="card-body">
+                <h1 class="card-title mb-4">About the BB84 Protocol</h1>
+                <p class="card-text">
+                    <strong>BB84</strong> is a way for two people—let’s call them Alice and Bob—to share a secret code
+                    so that nobody else can read their messages.
+                    It was invented in <strong>1984</strong> by <strong>Charles Bennett</strong> and <strong>Gilles
+                        Brassard</strong>, and it uses the magic rules of <strong>quantum physics</strong> to keep
+                    everything safe.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="snap-card" data-aos="fade-up">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 class="mt-2">Why is it useful?</h2>
+                <p class="card-text">
+                    BB84 relies on the fact that when you measure a photon, you disturb it—you make its quantum state
+                    “collapse.”
+                    If someone (Eve, the spy) tries to eavesdrop by measuring those photons, she’ll accidentally change
+                    them.
+                    Alice and Bob will notice something’s off and know their link isn’t safe.
+                    That makes BB84 practically <strong>eavesdrop‑proof</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="snap-card" data-aos="fade-up">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 class="mt-2">How does it work?</h2>
+                <ol class="card-text">
+                    <li class="mb-4">
+                        <strong>Setting up bases</strong><br>
+                        Alice has two special “glasses” she can use to send bits: the <strong>+ (rectilinear)</strong>
+                        basis and the <strong>× (diagonal)</strong> basis.
+                        Each direction on a glass means either 0 or 1.<br>
+                        <img src="pictures/bb84/Alice.png" alt="Step 1: Polarization bases"
+                            class="img-fluid mt-2 rounded shadow-sm">
+                    </li>
+                    <li class="mb-4">
+                        <strong>Sending photons</strong><br>
+                        Alice picks a random string of 0s and 1s and a random sequence of glasses (+ or ×).
+                        For each bit, she polarizes a photon using the chosen glass.<br>
+                        Bob receives each photon but doesn’t know which glass was used.
+                        He randomly chooses + or × to measure and notes down a 0 or 1 result.<br>
+                        <img src="pictures/bb84/qubits_sending.png" alt="Step 2: Sending photons"
+                            class="img-fluid mt-2 rounded shadow-sm">
+                    </li>
+                    <li class="mb-4">
+                        <strong>Comparing bases</strong><br>
+                        Over a public (but non‑secret) channel, Alice and Bob share which glasses they used for each
+                        photon—<em>not</em> the actual bit values.
+                        <img src="pictures/bb84/BaseExchange.png" alt="Step 4: Comparing bases"
+                            class="img-fluid mt-2 rounded shadow-sm">
+                    </li>
+                    <li class="mb-4">
+                        <strong>Comparing bases</strong><br>
+                        Then, they keep only the bits where they used the same glass.
+                        This gives them a shared secret key.
+                        If Eve tried to eavesdrop, she would have used the wrong glass for some photons, and Alice and
+                        Bob would notice that their keys don’t match, resulting in them repeating the process until they can be sure their key is secret and safe.
+                        <img src="pictures/bb84/sifting.png" alt="Step 4: Comparing bases"
+                            class="img-fluid mt-2 rounded shadow-sm">
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <section class="snap-card" data-aos="fade-up">
+        <div class="card shadow text-center">
+            <div class="card-body">
+                <h2 class="mt-2">Learn More</h2>
+                <a href="https://en.wikipedia.org/wiki/BB84" class="btn btn-primary mt-3" target="_blank">
+                    Learn more on Wikipedia
+                </a>
+            </div>
+        </div>
+    </section>
 </div>
+
+<!-- AOS JS for scroll animations (only on About page) -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        once: true,
+        duration: 900,
+        offset: 80
+    });
+
+    // Highlight the focused card
+    const snapCards = document.querySelectorAll('.snap-card');
+    const snapContainer = document.querySelector('.snap-container');
+    function setActiveCard() {
+        let closest = null;
+        let minDist = Infinity;
+        const containerRect = snapContainer.getBoundingClientRect();
+        snapCards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const dist = Math.abs((rect.top + rect.bottom) / 2 - (containerRect.top + containerRect.bottom) / 2);
+            if (dist < minDist) {
+                minDist = dist;
+                closest = card;
+            }
+        });
+        snapCards.forEach(card => card.classList.remove('active'));
+        if (closest) closest.classList.add('active');
+    }
+    snapContainer.addEventListener('scroll', () => {
+        window.requestAnimationFrame(setActiveCard);
+    });
+    window.addEventListener('resize', setActiveCard);
+    setActiveCard();
+
+    // Allow scrolling to next card only after reaching bottom of current card
+    snapCards.forEach(card => {
+        const cardBody = card.querySelector('.card-body');
+        if (!cardBody) return;
+        cardBody.addEventListener('wheel', function (e) {
+            const atBottom = cardBody.scrollTop + cardBody.clientHeight >= cardBody.scrollHeight - 2;
+            const atTop = cardBody.scrollTop === 0;
+            if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) {
+                // Allow parent scroll
+            } else {
+                // Prevent parent scroll
+                e.stopPropagation();
+            }
+        }, { passive: false });
+    });
+</script>
