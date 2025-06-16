@@ -1,0 +1,62 @@
+<div class="container my-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <h1 class="card-title mb-4">About the BB84 Protocol</h1>
+
+      <!-- What is BB84? -->
+      <h2 class="mt-4">What is <strong>BB84</strong>?</h2>
+      <p class="card-text">
+        <strong>BB84</strong> is a way for two people—let’s call them Alice and Bob—to share a secret code so that nobody else can read their messages. 
+        It was invented in <strong>1984</strong> by <strong>Charles Bennett</strong> and <strong>Gilles Brassard</strong>, and it uses the magic rules of <strong>quantum physics</strong> to keep everything safe.
+      </p>
+
+      <!-- Why is it useful? -->
+      <h2 class="mt-4">Why is it useful?</h2>
+      <p class="card-text">
+        BB84 relies on the fact that when you measure a photon, you disturb it—you make its quantum state “collapse.” 
+        If someone (Eve, the spy) tries to eavesdrop by measuring those photons, she’ll accidentally change them. 
+        Alice and Bob will notice something’s off and know their link isn’t safe. 
+        That makes BB84 practically <strong>eavesdrop‑proof</strong>.
+      </p>
+
+      <!-- How does it work? -->
+      <h2 class="mt-4">How does it work?</h2>
+      <ol class="card-text">
+        <li>
+          <strong>Setting up bases</strong><br>
+          Alice has two special “glasses” she can use to send bits: the <strong>+ (rectilinear)</strong> basis and the <strong>× (diagonal)</strong> basis. 
+          Each direction on a glass means either 0 or 1.<br>
+          <img src="temp1.jpg" alt="Step 1: Polarization bases" class="img-fluid mt-2">
+        </li>
+        <li class="mt-3">
+          <strong>Sending photons</strong><br>
+          Alice picks a random string of 0s and 1s and a random sequence of glasses (+ or ×). 
+          For each bit, she polarizes a photon using the chosen glass.<br>
+          <img src="temp2.jpg" alt="Step 2: Sending photons" class="img-fluid mt-2">
+        </li>
+        <li class="mt-3">
+          <strong>Bob’s measurements</strong><br>
+          Bob receives each photon but doesn’t know which glass was used. 
+          He randomly chooses + or × to measure and notes down a 0 or 1 result.<br>
+          <img src="temp3.jpg" alt="Step 3: Measuring photons" class="img-fluid mt-2">
+        </li>
+        <li class="mt-3">
+          <strong>Comparing bases</strong><br>
+          Over a public (but non‑secret) channel, Alice and Bob share which glasses they used for each photon—<em>not</em> the actual bit values. 
+          They keep only the bits where their choices matched.<br>
+          <img src="temp4.jpg" alt="Step 4: Comparing bases" class="img-fluid mt-2">
+        </li>
+        <li class="mt-3">
+          <strong>Checking security</strong><br>
+          To make sure nobody tapped in, Alice and Bob reveal a small subset of their kept bits and compare them. 
+          If those match, the rest become their shared secret key.<br>
+          <img src="temp5.jpg" alt="Step 5: Security check" class="img-fluid mt-2">
+        </li>
+      </ol>
+
+      <a href="https://en.wikipedia.org/wiki/BB84" class="btn btn-primary mt-3" target="_blank">
+        Learn more on Wikipedia
+      </a>
+    </div>
+  </div>
+</div>
