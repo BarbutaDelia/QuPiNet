@@ -1,0 +1,152 @@
+a {
+    text-decoration: none;
+}
+
+/* Animation styles */
+.animation-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 300px;
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f8f9fa;
+}
+
+.alice-box, .bob-box {
+    width: 200px; /* Increased from 180px */
+    height: 320px; /* Increased from 250px or 280px */
+    background-color: #fff;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 10;
+    overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+.quantum-channel {
+    flex-grow: 1;
+    height: 4px;
+    background-color: #adb5bd;
+    margin: 0 20px;
+    position: relative;
+}
+
+.photon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    transition: left 1s linear;
+    box-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+.info-panel {
+    margin-top: 20px;
+    text-align: left;
+}
+
+#alice-value, #bob-value {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.bit-array {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    justify-content: center;
+    gap: 4px; /* Slightly increased gap */
+    max-width: 170px; /* Increased from 150px */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alice-box .bit-array, .bob-box .bit-array {
+    max-height: 160px; /* Increased from 120px */
+    overflow-y: auto;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+.bit {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid #333;
+    position: relative;
+    flex-shrink: 0; /* Prevent bits from shrinking */
+}
+
+.controls {
+    margin-bottom: 30px;
+}
+
+/* Add these styles to your existing CSS */
+
+.barrier {
+    position: absolute;
+    top: -40px;
+    width: 6px;
+    height: 80px;
+    background-color: #333;
+    z-index: 5;
+    pointer-events: none; /* Ensure they don't interfere with clicks */
+}
+
+.alice-barrier {
+    left: 15%;
+}
+
+.bob-barrier {
+    right: 15%;
+}
+
+.misread {
+    position: relative;
+}
+
+.misread::after {
+    content: "✗";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 0 0 2px white, 0 0 3px white;
+    line-height: 1;
+}
+
+/* Adjustments for Bob's container */
+.bob-box .info-panel {
+    margin-bottom: 10px; /* Add space before bit array */
+}
+
+.bob-box .bit-array {
+    padding-bottom: 10px; /* Add padding at bottom to keep bits inside */
+}
+
+/* Ensure the barriers don't disrupt layout */
+.barrier {
+    position: absolute;
+    top: -40px;
+    width: 6px;
+    height: 80px;
+    background-color: #333;
+    z-index: 5;
+    pointer-events: none; /* Ensure they don't interfere with clicks */
+}
+
+/* Adjust the animation container to have proper height */
+.animation-container {
+    min-height: 420px; /* Increased to accommodate taller boxes */
+}
