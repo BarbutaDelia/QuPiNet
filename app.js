@@ -22,4 +22,7 @@ app.get('/simulation', (req, res) => {
     res.render('simulation');
 });
 
+app.get('/chat', (req, res) => {
+    res.render('chat');
+});
 app.listen(port, () => console.log(`Server is running at http://localhost:${port}/`));

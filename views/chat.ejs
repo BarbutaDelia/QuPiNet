@@ -1,0 +1,469 @@
+<style>
+  :root {
+    --color-bg-main: #729CCE;
+    --color-bg-card: #F1F0F3;
+    --color-bg-inner: #fff;
+    --color-primary: #346DB3;
+    --color-secondary: #CDBEBF;
+    --color-accent: #828A9E;
+    --color-msg-alice: #CDBEBF;
+    --color-msg-bob: #346DB3;
+    --color-msg-bg-alice: #F1F0F3;
+    --color-msg-bg-bob: #EAF0FB;
+  }
+  body {
+    background: var(--color-bg-main) !important;
+    min-height: 100vh;
+    margin: 0;
+  }
+  .chat-container {
+    width: 90vw;
+    max-width: 1400px;
+    min-width: 320px;
+    min-height: 300px;
+    margin: 5vh auto;
+    background: var(--color-bg-card);
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(52,109,179,0.10);
+    padding: 2rem 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: visible;
+    position: relative;
+  }
+  .info-section {
+    width: 100%;
+    max-width: 300px;
+    background: var(--color-bg-inner);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(130,138,158,0.10);
+    padding: 2rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    border: 2.5px solid var(--color-secondary);
+    transition: border-color 0.5s, background 0.5s;
+    z-index: 10;
+    position: relative;
+  }
+  .info-section.active {
+    border-color: var(--color-primary);
+  }
+  .info-section.default-bg {
+    background: var(--color-bg-card);
+    transition: background 0.5s;
+  }
+  .section-title {
+    color: var(--color-primary);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .key-value {
+    font-family: monospace;
+    font-size: 1.1rem;
+    color: var(--color-accent);
+    background: var(--color-bg-card);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    word-break: break-all;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+    border: 1px solid var(--color-secondary);
+  }
+  .main-content {
+    width: 96%;
+    max-width: 98vw;
+    min-width: 0;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 2rem;
+    min-height: 340px;
+    gap: 0;
+  }
+  .chat-box {
+    width: 260px;
+    min-height: 320px;
+    background: var(--color-bg-inner);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(130,138,158,0.10);
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid var(--color-primary);
+    z-index: 2;
+    position: relative;
+    top: 0;
+    transform: none;
+  }
+  #alice-chat {
+    align-self: flex-start;
+  }
+  #bob-chat {
+    align-self: flex-end;
+  }
+  .encrypted-section {
+    width: 320px;
+    min-height: 80px;
+    background: #EAF0FB;
+    border: 2px solid var(--color-primary);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(52,109,179,0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    height: 80px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-bottom: 0;
+    z-index: 3;
+    transition: opacity 0.3s, transform 0.7s cubic-bezier(.7,1.7,.7,1);
+  }
+  .encrypted-section.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .encrypted-section.animate {
+    transition: opacity 0.3s, transform 0.7s cubic-bezier(.7,1.7,.7,1);
+  }
+  .encrypted-title {
+    color: var(--color-primary);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .encrypted-value {
+    font-family: monospace;
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    background: #EAF0FB;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    word-break: break-all;
+    width: 90%;
+    text-align: center;
+    border: 1px solid var(--color-primary);
+  }
+  .chat-title {
+    color: var(--color-primary);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .chat-messages {
+    width: 100%;
+    min-height: 120px;
+    background: var(--color-bg-card);
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--color-secondary);
+    color: var(--color-accent);
+    font-family: monospace;
+    font-size: 1rem;
+    word-break: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-y: auto;
+    max-height: 180px;
+  }
+  .chat-input {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--color-secondary);
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .chat-send-btn {
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    background: var(--color-primary);
+    color: #fff;
+    padding: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .chat-send-btn:hover {
+    background: var(--color-bg-main);
+  }
+  .msg {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.4s forwards;
+    padding: 0.4rem 0.7rem;
+    border-radius: 8px;
+    max-width: 90%;
+    word-break: break-word;
+    margin-bottom: 2px;
+    font-size: 1rem;
+    display: inline-block;
+  }
+  .msg.sent {
+    background: var(--color-msg-bg-alice);
+    color: var(--color-msg-alice);
+    align-self: flex-end;
+    border: 1px solid var(--color-secondary);
+  }
+  .msg.received {
+    background: var(--color-msg-bg-bob);
+    color: var(--color-msg-bob);
+    align-self: flex-start;
+    border: 1px solid var(--color-primary);
+  }
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @media (max-width: 1100px) {
+    .chat-container, .main-content {
+      width: 100vw;
+      max-width: 100vw;
+    }
+    .main-content {
+      min-width: 0;
+    }
+    .encrypted-section {
+      left: 0 !important;
+      right: 0 !important;
+      transform: none !important;
+    }
+  }
+  @media (max-width: 900px) {
+    .chat-container {
+      width: 100vw;
+      min-width: 0;
+      max-width: 100vw;
+      border-radius: 0;
+      padding: 1rem 0;
+    }
+    .main-content {
+      flex-direction: column;
+      align-items: center;
+      min-height: 0;
+      margin-top: 1rem;
+    }
+    .chat-box {
+      position: static !important;
+      transform: none !important;
+      margin-bottom: 2rem;
+      align-self: center !important;
+    }
+    .encrypted-section {
+      position: static !important;
+      left: auto !important;
+      top: auto !important;
+      transform: none !important;
+      margin: 2rem 0;
+    }
+  }
+</style>
+
+<div class="chat-container">
+    <div class="info-section" id="infoSection">
+        <div class="section-title">Key</div>
+        <div class="key-value" id="encryptionKey">A1B2C3D4E5F6G7H8</div>
+    </div>
+    <div class="main-content" style="position:relative;">
+        <div class="chat-box" id="alice-chat">
+            <div class="chat-title">Alice</div>
+            <div class="chat-messages" id="alice-messages"></div>
+            <input class="chat-input" id="alice-input" type="text" placeholder="Type a message..." />
+            <button class="chat-send-btn" id="alice-send">Send</button>
+        </div>
+        <div class="encrypted-section" id="encryptedSection">
+            <div class="encrypted-title">Encrypted message</div>
+            <div class="encrypted-value" id="encryptedMessage"></div>
+        </div>
+        <div class="chat-box" id="bob-chat">
+            <div class="chat-title">Bob</div>
+            <div class="chat-messages" id="bob-messages"></div>
+            <input class="chat-input" id="bob-input" type="text" placeholder="Type a message..." />
+            <button class="chat-send-btn" id="bob-send">Send</button>
+        </div>
+    </div>
+</div>
+
+<script>
+  // Helper to get the center X of an element relative to .main-content
+  function getCenterX(elem) {
+    const main = document.querySelector('.main-content');
+    const mainRect = main.getBoundingClientRect();
+    const rect = elem.getBoundingClientRect();
+    return rect.left - mainRect.left + rect.width / 2;
+  }
+
+  // Helper to get the center X of the encrypted box (for animation)
+  function getEncryptedBoxOffset(targetCenterX) {
+    const enc = document.getElementById('encryptedSection');
+    const encRect = enc.getBoundingClientRect();
+    const main = document.querySelector('.main-content');
+    const mainRect = main.getBoundingClientRect();
+    const mainCenter = mainRect.width / 2;
+    return targetCenterX - mainCenter;
+  }
+
+  // For the final animation, move the encrypted box so its center aligns with the receiver's chat box center
+  function getEncryptedBoxOffsetToCenter(targetElem) {
+    return getEncryptedBoxOffset(getCenterX(targetElem));
+  }
+
+  function animateEncryptedBox(fromElem, cb) {
+    const enc = document.getElementById('encryptedSection');
+    enc.classList.add('visible', 'animate');
+    // Start at sender
+    const fromX = getEncryptedBoxOffset(getCenterX(fromElem));
+    enc.style.transform = `translate(calc(-50% + ${fromX}px), 0)`;
+
+    // Animate to center
+    setTimeout(() => {
+      enc.style.transform = `translate(-50%, 0)`;
+      setTimeout(() => {
+        if (cb) cb();
+      }, 700);
+    }, 50); // slight delay for initial render
+  }
+
+  function animateEncryptedBoxDisappear(toElem, fromElem, cb) {
+    const enc = document.getElementById('encryptedSection');
+    enc.classList.add('visible', 'animate');
+    // Start in center
+    enc.style.transform = `translate(-50%, 0)`;
+    setTimeout(() => {
+      // Move so center aligns with receiver's chat box center
+      const toX = getEncryptedBoxOffset(getCenterX(toElem));
+      // If sending from Bob to Alice, use +50% for correct direction
+      if (fromElem.id === 'bob-chat' && toElem.id === 'alice-chat') {
+        enc.style.transform = `translate(calc(+50% + ${toX}px), 0)`;
+      } else {
+        enc.style.transform = `translate(calc(-150% + ${toX}px), 0)`;
+      }
+      setTimeout(() => {
+        enc.className = 'encrypted-section';
+        enc.style.transform = '';
+        if (cb) cb();
+      }, 700);
+    }, 50);
+  }
+
+  function fakeEncrypt(text) {
+    return btoa(unescape(encodeURIComponent(text)));
+  }
+
+  function addMessage(container, text, type) {
+    const msg = document.createElement('div');
+    msg.className = 'msg ' + type;
+    msg.textContent = text;
+    container.appendChild(msg);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function setKeyBoxActive(isActive) {
+    const infoSection = document.getElementById('infoSection');
+    if (isActive) {
+      infoSection.classList.add('active');
+    } else {
+      infoSection.classList.remove('active');
+    }
+  }
+
+  // Alice sends
+  document.getElementById('alice-send').onclick = function() {
+    const input = document.getElementById('alice-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    setKeyBoxActive(true);
+    addMessage(document.getElementById('alice-messages'), text, 'sent');
+    document.getElementById('encryptedMessage').textContent = fakeEncrypt(text);
+
+    setTimeout(() => {
+      animateEncryptedBox(
+        document.getElementById('alice-chat'),
+        function() {
+          setTimeout(() => {
+            animateEncryptedBoxDisappear(
+              document.getElementById('bob-chat'),
+              document.getElementById('alice-chat'),
+              function() {
+                setKeyBoxActive(false);
+                addMessage(document.getElementById('bob-messages'), text, 'received');
+                document.getElementById('encryptedMessage').textContent = '';
+              }
+            );
+          }, 2000); // stays in center for 2s
+        }
+      );
+    }, 200);
+
+    input.value = '';
+  };
+
+  // Bob sends (mirrored logic)
+  document.getElementById('bob-send').onclick = function() {
+    const input = document.getElementById('bob-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    setKeyBoxActive(true);
+    addMessage(document.getElementById('bob-messages'), text, 'sent');
+    document.getElementById('encryptedMessage').textContent = fakeEncrypt(text);
+
+    setTimeout(() => {
+      animateEncryptedBox(
+        document.getElementById('bob-chat'),
+        function() {
+          setTimeout(() => {
+            animateEncryptedBoxDisappear(
+              document.getElementById('alice-chat'),
+              document.getElementById('bob-chat'),
+              function() {
+                setKeyBoxActive(false);
+                addMessage(document.getElementById('alice-messages'), text, 'received');
+                document.getElementById('encryptedMessage').textContent = '';
+              }
+            );
+          }, 2000); // stays in center for 2s
+        }
+      );
+    }, 200);
+
+    input.value = '';
+  };
+
+  // Enter key support
+  document.getElementById('alice-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('alice-send').click();
+  });
+  document.getElementById('bob-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('bob-send').click();
+  });
+
+  // Hide encrypted box if empty on load and set key box to light border
+  document.getElementById('encryptedSection').className = 'encrypted-section';
+  setKeyBoxActive(false);
+</script>
