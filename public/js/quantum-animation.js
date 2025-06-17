@@ -667,6 +667,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show the final key after all bits have been processed
         setTimeout(() => {
             showFinalKey(finalKey);
+            showChatWithKey(finalKey.join(''));
         }, quantumValues.length * 500); 
     }
     
@@ -746,6 +747,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Reset the key composition container
         resetKeyCompositionContainer();
+        
+        // Hide chat section
+        document.getElementById('chat-section').style.display = 'none';
     }
     
     function resetKeyCompositionContainer() {
