@@ -562,9 +562,9 @@ h2 {
     }
 }
 .nav-link {
-  color: #CDBEBF;                
-  transition: color 0.5s ease, transform 0.5s ease;
-  display: inline-block;     
+    color: #CDBEBF;
+    transition: color 0.5s ease, transform 0.5s ease;
+    display: inline-block;
 }
 .nav-link:hover{
     color: #729CCE;
