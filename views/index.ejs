@@ -66,33 +66,183 @@
         </div>
     </div>
 <div class="snap-container">
-  <section class="snap-card" id="what-we-aim-for" data-aos="fade-up">
-    <div class="card shadow">
-      <div class="card-body">
-        <img src="/assets/logo-no-bg.png" alt="Aim" style="width: 180px; max-width: 40vw; border-radius: 1rem; box-shadow: 0 2px 8px 0 rgba(31,38,135,0.08);">
-        <h2 style="color: #2a5298; margin-bottom: 1rem;">What do we aim for?</h2>
-        <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 400px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam euismod, urna eu tincidunt consectetur, nisi nisl aliquam enim, nec dictum ex enim nec urna. Pellentesque habitant morbi tristique senectus et netus.</p>
-      </div>
-    </div>
-  </section>
-  <section class="snap-card" id="how-we-do-it" data-aos="fade-up">
-    <div class="card shadow">
-      <div class="card-body">
-        <img src="/pictures/bb84/BobAndAliceBB84.png" alt="How" style="width: 180px; max-width: 40vw; border-radius: 1rem; box-shadow: 0 2px 8px 0 rgba(31,38,135,0.08);">
-        <h2 style="color: #2a5298; margin-bottom: 1rem;">How do we do it?</h2>
-        <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 400px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod, urna eu tincidunt consectetur, nisi nisl aliquam enim, nec dictum ex enim nec urna. Pellentesque habitant morbi tristique senectus et netus.</p>
-      </div>
-    </div>
-  </section>
-  <section class="snap-card" id="what-we-offer" data-aos="fade-up">
-    <div class="card shadow">
-      <div class="card-body">
-        <img src="/pictures/bb84/BaseExchange.png" alt="Offer" style="width: 180px; max-width: 40vw; border-radius: 1rem; box-shadow: 0 2px 8px 0 rgba(31,38,135,0.08);">
-        <h2 style="color: #2a5298; margin-bottom: 1rem;">What do we offer?</h2>
-        <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 400px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam euismod, urna eu tincidunt consectetur, nisi nisl aliquam enim, nec dictum ex enim nec urna. Pellentesque habitant morbi tristique senectus et netus.</p>
-      </div>
-    </div>
-  </section>
+    <section class="snap-card" id="what-we-aim-for" data-aos="fade-up">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 style="color: #2a5298; margin-bottom: 1rem;">What do we aim for?</h2>
+                <div>
+                    <img src="/assets/logo-no-bg.png" alt="Aim" class="card-img-float"
+                        style="width: 180px; max-width: 40vw; border-radius: 1rem; float: left; margin-right: 2rem; margin-bottom: 1rem;">
+                    <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 100%; margin: 0;">
+                        <b>Quantum computers</b> are evolving fast—so fast that they’re threatening the way we keep
+                        secrets today.
+                        Algorithms like <b>Grover's</b> and <b>Shor's</b> can break the <b>encryption systems</b> we
+                        currently rely on by
+                        efficiently solving problems like <b>discrete logarithms</b> and <b>prime factorization</b>.
+                        <br>
+                        <br>
+                        In short: <b>quantum can break classical</b>. So, what do we do?
+                        We fight <b>quantum with quantum</b>.
+                        <br>
+                        <br>
+                        <br>
+                        Our mission is to <b>educate</b> people about <b>quantum-safe encryption</b>—especially
+                        techniques that use the
+                        very rules of <b>quantum physics</b> to protect data. Because if the future is <b>quantum</b>,
+                        so must be our
+                        <b>security</b>.
+                    </p>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="snap-card" id="how-we-do-it" data-aos="fade-up">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 style="color: #2a5298; margin-bottom: 1rem;">How do we do it?</h2>
+                <div>
+                    <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 100%; margin: 0;">
+                        Before diving into how we simulate photon polarization for the BB84 protocol, we recommend
+                        checking out the <a href="/about" class="btn btn-primary btn-sm"
+                            style="margin: 0 0.2em; vertical-align: baseline;">About</a> page. Understanding how BB84
+                        works will make the analogies below much
+                        easier to follow.
+                        <br><br>
+                        So, if you’re still here — we’ll assume you’ve got a handle on BB84. Great!
+                        <br><br>
+                        We built an educational hardware simulator using two Raspberry Pi devices, designed to replicate
+                        the BB84 protocol based on the ETSI (European Telecommunications Standards Institute) standard.
+                        This means that if you go beyond just playing with the simulation, you’ll actually get a taste
+                        of how real-world quantum cryptography works.<br><br>
+                    </p>
+                    <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 100%; margin: 0;">
+                        The setup uses:
+                    </p>
+                    <ul style="font-size: 1.1rem; color: #222; margin-top: 1rem;">
+                        <li>An <b>RGB LED</b> to send light (like photons)</li>
+                        <li>A <b>color sensor (TCS3200)</b> to "measure" the light</li>
+                    </ul>
+                    <div style="text-align: center; margin: 2rem 0;">
+                        <img src="/pictures/backend_assets/RealDevice.png" alt="Real Device Photo"
+                            style="max-width: 50%; height: auto; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    </div>
+                    <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 100%; margin: 0;">
+                        <br>
+                        Now, of course, we can’t simulate the actual quantum collapse of a photon using just a light and
+                        a
+                        sensor — if we could, quantum devices wouldn’t be so hard to build!
+                        But we can use clever analogies to recreate the logic behind BB84.
+                        <br><br>
+                        <b>Photon Polarization:</b><br>
+                        In the real protocol, Alice chooses between two bases:
+                    </p>
+                    <ul style="font-size: 1.1rem; color: #222; margin-top: 1rem;">
+                        <li>+ (rectilinear) → horizontal or vertical</li>
+                        <li>× (diagonal) → 45° or 135°</li>
+                    </ul>
+                    <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 100%; margin: 0;">
+                        Each axis in these bases represents a bit: either 0 or 1.<br>
+                        With our simulator, colors are used to represent these directions.<br>
+                        For example:
+                    </p>
+                    <ul style="font-size: 1.1rem; color: #222; margin-top: 1rem;">
+                        <li>In the diagonal basis (×), the \ diagonal could be represented by <b>blue = 0</b></li>
+                        <li>In the rectilinear basis (+), the vertical axis (|) could also be <b>blue = 1</b></li>
+                    </ul>
+                    <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 100%; margin: 0;">
+                        To an outside observer, the LED just shows blue, but without knowing the basis, they can’t tell
+                        if that blue means a 0 or a 1 — just like in the real BB84 protocol.<br>
+                        <br><b>Measuring Photons:</b><br>
+                        In our setup, <b>Bob</b> uses the <b>TCS3200 color sensor</b> to detect the "photon" sent by
+                        Alice — which is actually light emitted by the RGB LED.
+                        <br><br>
+                        Just like in the real BB84 protocol:
+                    </p>
+                    <ul style="font-size: 1.1rem; color: #222; margin-top: 1rem;">
+                        <li>If Bob chooses the <b>same basis</b> as Alice, he can correctly interpret the bit.</li>
+                        <li>If he chooses the <b>wrong basis</b>, the result is effectively <b>random</b>.</li>
+                    </ul>
+                    <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 100%; margin: 0;">
+                        The LED light travels to the sensor either:
+                    </p>
+                    <ul style="font-size: 1.1rem; color: #222; margin-top: 1rem;">
+                        <li>Directly (from LED to sensor)</li>
+                        <li>Through a <b>transparent acrylic tube</b></li>
+                        <li>Or via a short <b>fiber optic cable</b>, for extra realism</li>
+                    </ul>
+                    <div style="text-align: center; margin: 2rem 0;"></div>
+                    <img src="/pictures/backend_assets/RaspberryPiWiring.png" alt="Raspberry Pi Wiring Diagram"
+                        style="max-width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                </div>
+                <p class="card-text" style="font-size: 1.2rem; color: #222; max-width: 100%; margin: 0;">
+                    Bob reads the color at <b>configurable time intervals</b> and tries to interpret a bit based on
+                    the value received.
+                    If the color doesn’t match any expected mapping or falls outside the detection range, he
+                    discards it — just like noisy or tampered photons in real systems.
+                    <br><br>
+                    Once the transmission ends, Alice and Bob publicly exchange their bases and keep only the bits
+                    where their choices <b>matched</b>.
+                    The result? A shared secret key, just like in the original <b>BB84 protocol</b>.
+                </p>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </section>
+    <section class="snap-card" id="what-we-offer" data-aos="fade-up">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 style="color: #2a5298; margin-bottom: 1rem;">What do we offer?</h2>
+                <div>
+                    <p class="card-text" style="font-size: 1.2rem; color: #222;">
+                        Our platform provides both a <b>software simulator</b> and a <b>real-world hardware tool</b> to
+                        help you fully understand and experiment with the <b>BB84 quantum key distribution protocol</b>.
+                        Whether you’re here to learn or prototype, we’ve got you covered.<br>
+                        <br>
+                    <p class="card-text" style="font-size: 1.2rem; color: #222;">
+                        Our tool is designed to be <b>bidirectional</b>: as long as both devices have the necessary
+                        peripherals, either side can act as sender or receiver.
+                    </p>
+                    </p>
+
+                    <ul style="font-size: 1.1rem; color: #222; margin-top: 1rem;">
+                        <li>
+                            <b>Interactive Simulation Page</b> — Step through each phase of the BB84 protocol visually:
+                            photon generation, basis selection, measurement, sifting, and key creation. It’s the perfect
+                            companion for understanding the protocol at your own pace.
+                        </li>
+                        <li>
+                            <b>Hardware Toolkit (ETSI GS QKD 004 compliant)</b> — A real-world device based on Raspberry
+                            Pi that follows the BB84 standard and supports the full QKD API:
+                            <ul style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                                <li><code>qkd_open</code></li>
+                                <li><code>qkd_connect_blocking</code></li>
+                                <li><code>qkd_get_key</code></li>
+                                <li><code>qkd_close</code></li>
+                            </ul>
+                            Designed to be configurable: choose the <b>key length</b>, the <b>peer device</b>, and more.
+                        </li>
+                        <li>
+                            <b>Portable & Flexible</b> — Don’t have a Raspberry Pi? No problem.
+                            The tool can also run on regular PCs. In this mode:
+                            <ul style="margin-top: 0.5rem;">
+                                <li>A <b>TKinter window</b> emulates the LED by flashing colors on-screen</li>
+                                <li><b>OpenCV</b> reads those colors, acting like a virtual TCS3200 sensor</li>
+                            </ul>
+                            It’s quantum simulation — anywhere, anytime.
+                        </li>
+                    </ul>
+
+                    <p class="card-text" style="font-size: 1.2rem; color: #222;">
+                        Whether you want to just visualize how BB84 works or you’re ready to dive into real-device
+                        experiments, our tools are built to support your journey into <b>quantum-secure
+                            communication</b>.
+                    </p>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="/snap-cards.js"></script>
