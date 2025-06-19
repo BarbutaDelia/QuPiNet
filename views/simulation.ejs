@@ -400,7 +400,35 @@
           </div>
       </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script>
+        // Pad key to 8 chars (64 bits)
+    function padKey(key) {
+        return key.padEnd(8, '0').slice(0, 8);
+    }
+
+    // Hash to 128 bits (MD5)
+    function hashKey128(key) {
+        return CryptoJS.MD5(key).toString();
+    }
+
+    // AES Encrypt/Decrypt using ECB mode
+    function aesEncrypt(text, key) {
+        const padded = padKey(key);
+        const hashed = CryptoJS.enc.Hex.parse(hashKey128(padded));
+        return CryptoJS.AES.encrypt(text, hashed, { mode: CryptoJS.mode.ECB }).toString();
+    }
+    function aesDecrypt(cipher, key) {
+        const padded = padKey(key);
+        const hashed = CryptoJS.enc.Hex.parse(hashKey128(padded));
+        const bytes = CryptoJS.AES.decrypt(cipher, hashed, { mode: CryptoJS.mode.ECB });
+        return bytes.toString(CryptoJS.enc.Utf8);
+    }
+
+    // Get the key from the chat key box
+    function getChatKey() {
+        return document.getElementById('encryptionKey').textContent.trim();
+    }
     // Helper to get the center X of an element relative to .main-content
     function getCenterX(elem) {
       const main = document.querySelector('.main-content');
@@ -462,10 +490,6 @@
       }, 50);
     }
 
-    function fakeEncrypt(text) {
-      return btoa(unescape(encodeURIComponent(text)));
-    }
-
     function addMessage(container, text, type) {
       const msg = document.createElement('div');
       msg.className = 'msg ' + type;
@@ -491,7 +515,8 @@
 
       setKeyBoxActive(true);
       addMessage(document.getElementById('alice-messages'), text, 'sent');
-      document.getElementById('encryptedMessage').textContent = fakeEncrypt(text);
+      const key = getChatKey();
+      document.getElementById('encryptedMessage').textContent = aesEncrypt(text, key);
 
       setTimeout(() => {
         animateEncryptedBox(
@@ -503,7 +528,8 @@
                 document.getElementById('alice-chat'),
                 function() {
                   setKeyBoxActive(false);
-                  addMessage(document.getElementById('bob-messages'), text, 'received');
+                  let decryptedText = aesDecrypt(document.getElementById('encryptedMessage').textContent, key);
+                  addMessage(document.getElementById('bob-messages'), decryptedText, 'received');
                   document.getElementById('encryptedMessage').textContent = '';
                 }
               );
@@ -523,7 +549,8 @@
 
       setKeyBoxActive(true);
       addMessage(document.getElementById('bob-messages'), text, 'sent');
-      document.getElementById('encryptedMessage').textContent = fakeEncrypt(text);
+      const key = getChatKey();
+      document.getElementById('encryptedMessage').textContent = aesEncrypt(text, key);
 
       setTimeout(() => {
         animateEncryptedBox(
@@ -535,7 +562,8 @@
                 document.getElementById('bob-chat'),
                 function() {
                   setKeyBoxActive(false);
-                  addMessage(document.getElementById('alice-messages'), text, 'received');
+                  let decryptedText = aesDecrypt(document.getElementById('encryptedMessage').textContent, key);
+                  addMessage(document.getElementById('alice-messages'), decryptedText, 'received');
                   document.getElementById('encryptedMessage').textContent = '';
                 }
               );
