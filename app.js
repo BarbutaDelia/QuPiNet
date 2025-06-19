@@ -22,4 +22,9 @@ app.get('/simulation', (req, res) => {
     res.render('simulation');
 });
 
+app.get('/testhardware', (req, res) => {
+  console.log("Serving /testhardware");
+  res.render('testHardware');
+});
+
 app.listen(port, () => console.log(`Server is running at http://localhost:${port}/`));
