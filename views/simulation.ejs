@@ -105,7 +105,7 @@
       --color-msg-bg-bob: #EAF0FB;
     }
     body {
-      background: var(--color-bg-main) !important;
+      background: var(--color-bg-card) !important;
       min-height: 100vh;
       margin: 0;
     }
@@ -125,6 +125,12 @@
       align-items: center;
       overflow: visible;
       position: relative;
+          background: #fff;
+    border-radius: 2rem;
+    box-shadow: 0 4px 24px rgba(52,109,179,0.10);
+    border: none;
+    margin-bottom: 2rem;
+    /* Optional: for spacing between cards */
     }
     .info-section {
       width: 100%;
@@ -138,12 +144,13 @@
       align-items: center;
       margin-bottom: 1.2rem;
       border: 2.5px solid var(--color-secondary);
-      transition: border-color 0.5s, background 0.5s;
+      transition: border-color 0.5s, border-width 0.5s, background 0.5s;
       z-index: 10;
       position: relative;
     }
     .info-section.active {
       border-color: var(--color-primary);
+      border-width: 5px;
     }
     .info-section.default-bg {
       background: var(--color-bg-card);
