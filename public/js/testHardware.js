@@ -144,60 +144,116 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function showChatUI(aliceUrl, bobUrl, keyHandle, key) {
-    // Hide the setup form
-    document.querySelector(".row").style.display = "none";
-    // Insert chat UI (reuse simulation.ejs chat markup, but update JS to use hardware endpoints and key)
-    // For brevity, you can fetch the chat HTML via AJAX or copy the markup here and adapt
-    // Example placeholder:
-    const chatDiv = document.createElement("div");
-    chatDiv.innerHTML = `
-      <div class="container mt-4">
-        <h2 class="text-center">Hardware QKD Chat</h2>
-        <div id="chat-messages" class="border rounded p-3 mb-3" style="height: 300px; overflow-y: auto;"></div>
-        <form id="chat-form" class="d-flex">
-          <input type="text" id="chat-input" class="form-control me-2" placeholder="Type your message..." autocomplete="off">
-          <button type="submit" class="btn btn-success">Send</button>
-        </form>
-        <div class="mt-2">
-          <strong>Last Encrypted Message:</strong>
-          <span id="last-encrypted"></span>
-        </div>
-      </div>
-    `;
-    document.querySelector(".container").appendChild(chatDiv);
+    // No longer hiding the initial setup form.
+    // document.querySelector('.container.mt-5').style.display = 'none';
 
-    const chatMessages = document.getElementById("chat-messages");
-    const chatForm = document.getElementById("chat-form");
-    const chatInput = document.getElementById("chat-input");
-    const lastEncrypted = document.getElementById("last-encrypted");
+    // Show the chat section
+    const chatSection = document.getElementById('chat-section');
+    chatSection.style.display = 'block';
 
-    chatForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const msg = chatInput.value.trim();
-      if (!msg) return;
-      // Send message to Bob using hardware endpoint
-      const resp = await fetch(`${bobUrl}/send_encrypted_message`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key_handle: keyHandle, message: msg })
-      });
-      const data = await resp.json();
-      if (data.ciphertext) {
-        lastEncrypted.textContent = data.ciphertext;
-        chatMessages.innerHTML += `<div><b>You:</b> ${msg}</div>`;
-        chatInput.value = "";
-      } else {
-        alert("Failed to send: " + (data.error || "Unknown error"));
+    // Set the generated key in the UI
+    document.getElementById('encryptionKey').textContent = key;
+
+    // Smoothly scroll down to the new chat section
+    chatSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // --- The rest of the send logic remains the same ---
+
+    // Alice sends to her own URL, which then forwards to Bob
+    document.getElementById('alice-send').onclick = async function() {
+      const input = document.getElementById('alice-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      addMessage(document.getElementById('alice-messages'), text, 'sent');
+      input.value = '';
+
+      // Step 1: Alice encrypts the message
+      let ciphertext = '';
+      try {
+        const resp = await fetch(`${aliceUrl}/send_encrypted_message`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key_handle: keyHandle, message: text })
+        });
+        const data = await resp.json();
+        if (!resp.ok || data.error) throw new Error(data.error || "Failed to encrypt");
+        ciphertext = data.ciphertext;
+      } catch (e) {
+        alert("Alice failed to encrypt message: " + e.message);
+        return;
       }
-    });
 
-    // Poll for received messages
-    setInterval(async () => {
-      const resp = await fetch(`${aliceUrl}/messages`);
-      const html = await resp.text();
-      // Simple parsing: extract <li>...</li> as messages
-      const matches = [...html.matchAll(/<li>(.*?)<\/li>/g)];
-      chatMessages.innerHTML = matches.map(m => `<div><b>Peer:</b> ${m[1]}</div>`).join("");
-    }, 3000);
+      // Step 2: Display ciphertext and animate
+      document.getElementById('encryptedMessage').textContent = ciphertext;
+      setKeyBoxActive(true);
+
+      animateEncryptedBox(
+        document.getElementById('alice-chat'),
+        function() { // Animation to center is complete
+          setTimeout(() => {
+            // The backend forwards the message to Bob. The frontend just needs to update the UI.
+            // We use the original 'text' variable.
+            animateEncryptedBoxDisappear(
+              document.getElementById('bob-chat'),
+              document.getElementById('alice-chat'),
+              function() {
+                setKeyBoxActive(false);
+                addMessage(document.getElementById('bob-messages'), text, 'received');
+                document.getElementById('encryptedMessage').textContent = '';
+              }
+            );
+          }, 2000); // stays in center for 2s
+        }
+      );
+    };
+
+    // Bob sends to his own URL, which then forwards to Alice
+    document.getElementById('bob-send').onclick = async function() {
+      const input = document.getElementById('bob-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      addMessage(document.getElementById('bob-messages'), text, 'sent');
+      input.value = '';
+
+      // Step 1: Bob encrypts the message
+      let ciphertext = '';
+      try {
+        const resp = await fetch(`${bobUrl}/send_encrypted_message`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key_handle: keyHandle, message: text })
+        });
+        const data = await resp.json();
+        if (!resp.ok || data.error) throw new Error(data.error || "Failed to encrypt");
+        ciphertext = data.ciphertext;
+      } catch (e) {
+        alert("Bob failed to encrypt message: " + e.message);
+        return;
+      }
+
+      // Step 2: Display ciphertext and animate
+      document.getElementById('encryptedMessage').textContent = ciphertext;
+      setKeyBoxActive(true);
+
+      animateEncryptedBox(
+        document.getElementById('bob-chat'),
+        function() { // Animation to center is complete
+          setTimeout(() => {
+            // The backend forwards the message to Alice. The frontend just needs to update the UI.
+            animateEncryptedBoxDisappear(
+              document.getElementById('alice-chat'),
+              document.getElementById('bob-chat'),
+              function() {
+                setKeyBoxActive(false);
+                addMessage(document.getElementById('alice-messages'), text, 'received');
+                document.getElementById('encryptedMessage').textContent = '';
+              }
+            );
+          }, 2000); // stays in center for 2s
+        }
+      );
+    };
   }
 });
